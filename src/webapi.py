@@ -1,6 +1,6 @@
 import os
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 import psycopg2
 
 app = FastAPI()
@@ -93,7 +93,7 @@ def read(
             if petal_ratio:
                 sql_conditions.append(f"petal_ratio {parse_condition(petal_ratio)}")
         except:
-            raise fastapi.HTTPException(status_code=400)
+            raise HTTPException(status_code=400)
         query += " " + " AND ".join(sql_conditions)
     with connection.cursor() as cursor:
         cursor.execute(query)
