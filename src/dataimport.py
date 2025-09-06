@@ -1,7 +1,7 @@
 import io
 
 from urllib import request
-
+import pandas as pd
 
 
 def main(url):
@@ -9,7 +9,10 @@ def main(url):
     with request.urlopen(url) as response, io.StringIO() as buffer:
         buffer.write(response.read().decode("utf-8"))
         buffer.seek(0)
-        print(buffer.getvalue())
+        df = pd.read_csv(buffer, sep=",")
+        df["sepal_ratio"] = df["sepal_length"] / df["sepal_width"]
+        df["petal_ratio"] = df["petal_length"] / df["petal_width"]
+    print(df)
 
 
 main(
