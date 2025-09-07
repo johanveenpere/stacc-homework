@@ -2,8 +2,11 @@ import os
 
 from fastapi import FastAPI, HTTPException
 import psycopg2
+from dotenv import load_dotenv
 
 app = FastAPI()
+
+load_dotenv()
 db_username = os.environ["DB_USERNAME"]
 db_password = os.environ["DB_PASSWORD"]
 
@@ -19,7 +22,7 @@ except:
 
 
 @app.get("/iris/{entry_id}")
-def read_root(entry_id: int):
+def get_item(entry_id: int):
     with connection.cursor() as cursor:
         cursor.execute(f"SELECT * FROM iristable WHERE index = {entry_id};")
         result = cursor.fetchone()
@@ -55,7 +58,7 @@ type optional_condition = str | None
 
 
 @app.get("/irises")
-def read(
+def get_all_with_condition(
     sepal_length: optional_condition = None,
     sepal_width: optional_condition = None,
     petal_length: optional_condition = None,
