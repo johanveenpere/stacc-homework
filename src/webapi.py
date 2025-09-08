@@ -55,18 +55,19 @@ def parse_condition(condition: str):
     return condition_string
 
 
-type optional_condition = str | None
-
-
-@app.get("/irises")
+@app.get(
+    "/irises",
+    summary="Get all entries in the database.",
+    description="""Get all entries in the database matching all supplied conditions. The condition for species is the species name. For other parameters the condition is in the form (operator)(float) where the operators are: lt - less than, le - less than or equal, eq - equal, gt - greater than, ge - greater than or equal, ne - not equal. For example, the condition "le6.0" means <=6.0""",
+)
 def get_all_with_condition(
-    sepal_length: optional_condition = None,
-    sepal_width: optional_condition = None,
-    petal_length: optional_condition = None,
-    petal_width: optional_condition = None,
-    species: optional_condition = None,
-    sepal_ratio: optional_condition = None,
-    petal_ratio: optional_condition = None,
+    sepal_length: str = None,
+    sepal_width: str = None,
+    petal_length: str = None,
+    petal_width: str = None,
+    species: str = None,
+    sepal_ratio: str = None,
+    petal_ratio: str = None,
 ):
     sql_conditions = []
 
