@@ -5,8 +5,10 @@ from urllib import request
 import pandas as pd
 from sqlalchemy import create_engine
 
-db_username = os.environ["DB_USERNAME"]
-db_password = os.environ["DB_PASSWORD"]
+pg_username = os.environ["PG_USERNAME"]
+pg_password = os.environ["PG_PASSWORD"]
+pg_hostname = os.environ["PG_HOSTNAME"]
+pg_database_name = os.environ["PG_DATABASE_NAME"]
 
 
 def main(url):
@@ -18,7 +20,9 @@ def main(url):
         df["sepal_ratio"] = df["sepal_length"] / df["sepal_width"]
         df["petal_ratio"] = df["petal_length"] / df["petal_width"]
     print(df)
-    engine = create_engine(f"postgresql://{db_username}:{db_password}@db/pgdatabase")
+    engine = create_engine(
+        f"postgresql://{pg_username}:{pg_password}@{pg_hostname}/{pg_database_name}"
+    )
     df.to_sql("iristable", engine)
 
 

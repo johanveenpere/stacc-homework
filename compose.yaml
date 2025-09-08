@@ -6,6 +6,8 @@ services:
     environment:
       DB_USERNAME: pguser
       DB_PASSWORD: pguser
+      DB_HOSTNAME: db
+      DB_DATABASE_NAME: pgdatabase
     depends_on:
       db:
         condition: service_started

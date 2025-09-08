@@ -7,13 +7,14 @@ from dotenv import load_dotenv
 app = FastAPI()
 
 load_dotenv()
-db_username = os.environ["DB_USERNAME"]
-db_password = os.environ["DB_PASSWORD"]
-
+pg_username = os.environ["PG_USERNAME"]
+pg_password = os.environ["PG_PASSWORD"]
+pg_hostname = os.environ["PG_HOSTNAME"]
+pg_database_name = os.environ["PG_DATABASE_NAME"]
 
 try:
     connection = psycopg2.connect(
-        f"dbname='pgdatabase' user='{db_username}' host='db' password='{db_password}'"
+        f"dbname='{pg_database_name}' user='{pg_username}' host='{pg_hostname}' password='{pg_password}'"
     )
 
 except:
