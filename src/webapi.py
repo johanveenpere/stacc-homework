@@ -8,7 +8,9 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
+# This is required to load the environment variables from .env when running tests from the IDE
 load_dotenv()
+
 pg_username = os.environ["PG_USERNAME"]
 pg_password = os.environ["PG_PASSWORD"]
 pg_hostname = os.environ["PG_HOSTNAME"]
