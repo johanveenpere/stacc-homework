@@ -1,8 +1,10 @@
 import os
+from typing import List
 
 from fastapi import FastAPI, HTTPException
 import psycopg2
 from dotenv import load_dotenv
+from pydantic import BaseModel
 
 app = FastAPI()
 
@@ -104,3 +106,29 @@ def get_all_with_condition(
         cursor.execute(query)
         result = cursor.fetchall()
     return result
+
+
+class Iris(BaseModel):
+    sepal_width: float
+    sepal_length: float
+    petal_width: float
+    petal_length: float
+    species: str
+
+
+@app.post("/irises")
+def add_new_data(data: List[Iris]):
+    with connection.cursor() as cursor:
+        for element in data:
+            cursor.execute(
+                "INSERT INTO iristable (sepal_length, sepal_width, petal_length, petal_width, species, sepal_ratio, petal_ratio) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+                (
+                    element.sepal_length,
+                    element.sepal_width,
+                    element.petal_length,
+                    element.petal_width,
+                    element.species,
+                    element.sepal_length / element.sepal_width,
+                    element.petal_length / element.petal_width,
+                ),
+            )
