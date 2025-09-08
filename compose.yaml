@@ -2,10 +2,13 @@ services:
   app:
     image: webapi
     ports:
-      - 8000:8000
+      - "8000:8000"
     environment:
       DB_USERNAME: pguser
       DB_PASSWORD: pguser
+    depends_on:
+      db:
+        condition: service_started
   db:
     image: postgres
     restart: always

@@ -13,7 +13,7 @@ db_password = os.environ["DB_PASSWORD"]
 
 try:
     connection = psycopg2.connect(
-        f"dbname='pgdatabase' user='{db_username}' host='localhost' password='{db_password}'"
+        f"dbname='pgdatabase' user='{db_username}' host='db' password='{db_password}'"
     )
 
 except:
