@@ -4,10 +4,10 @@ services:
     ports:
       - "8000:8000"
     environment:
-      DB_USERNAME: pguser
-      DB_PASSWORD: pguser
-      DB_HOSTNAME: db
-      DB_DATABASE_NAME: pgdatabase
+      PG_USERNAME: pguser
+      PG_PASSWORD: pguser
+      PG_HOSTNAME: db
+      PG_DATABASE_NAME: pgdatabase
     depends_on:
       db:
         condition: service_started
