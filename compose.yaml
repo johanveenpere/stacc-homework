@@ -10,7 +10,7 @@ services:
       PG_DATABASE_NAME: pgdatabase
     depends_on:
       db:
-        condition: service_started
+        condition: service_healthy
   db:
     image: postgres
     restart: always
@@ -18,6 +18,11 @@ services:
       POSTGRES_USER: pguser
       POSTGRES_PASSWORD: pguser
       POSTGRES_DB: pgdatabase
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 1s
+      timeout: 5s
+      retries: 10
     volumes:
       - pgdata:/var/lib/postgresql/data
 volumes:
