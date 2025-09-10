@@ -5,6 +5,6 @@ COPY . .
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
-CMD python src/dataimport.py && fastapi run src/webapi.py
+CMD python api/dataimport.py && fastapi run api/webapi.py
 
 EXPOSE 8000
